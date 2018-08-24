@@ -1,0 +1,32 @@
+<%= form_with(model: advert, local: true) do |form| %>
+  <% if advert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(advert.errors.count, "error") %> prohibited this advert from being saved:</h2>
+
+      <ul>
+      <% advert.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :season_pass_id %>
+    <%= form.text_field :season_pass_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :game_id %>
+    <%= form.text_field :game_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sold_to_user_id %>
+    <%= form.text_field :sold_to_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

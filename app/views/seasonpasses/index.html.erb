@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Seasonpasses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Club</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @seasonpasses.each do |seasonpass| %>
+      <tr>
+        <td><%= seasonpass.user %></td>
+        <td><%= seasonpass.club %></td>
+        <td><%= link_to 'Show', seasonpass %></td>
+        <td><%= link_to 'Edit', edit_seasonpass_path(seasonpass) %></td>
+        <td><%= link_to 'Destroy', seasonpass, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Seasonpass', new_seasonpass_path %>

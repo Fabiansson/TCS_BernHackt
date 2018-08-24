@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @seasonpass.user %>
+</p>
+
+<p>
+  <strong>Club:</strong>
+  <%= @seasonpass.club %>
+</p>
+
+<%= link_to 'Edit', edit_seasonpass_path(@seasonpass) %> |
+<%= link_to 'Back', seasonpasses_path %>

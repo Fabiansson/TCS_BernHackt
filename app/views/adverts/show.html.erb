@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Season pass:</strong>
+  <%= @advert.season_pass %>
+</p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @advert.game %>
+</p>
+
+<p>
+  <strong>Sold to user:</strong>
+  <%= @advert.sold_to_user %>
+</p>
+
+<%= link_to 'Edit', edit_advert_path(@advert) %> |
+<%= link_to 'Back', adverts_path %>
