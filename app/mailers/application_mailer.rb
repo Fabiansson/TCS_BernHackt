@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'TCS_Abosharing@tcs.com'
+  default from: 'TCS.Abosharing@gmail.com'
   layout 'mailer'
 end
