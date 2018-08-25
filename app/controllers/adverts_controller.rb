@@ -2,13 +2,11 @@ class AdvertsController < ApplicationController
   before_action :set_advert, only: [:show, :edit, :update, :destroy]
 
   # GET /adverts
-  # GET /adverts.json
   def index
     @adverts = Advert.all
   end
 
   # GET /adverts/1
-  # GET /adverts/1.json
   def show
   end
 
@@ -22,43 +20,28 @@ class AdvertsController < ApplicationController
   end
 
   # POST /adverts
-  # POST /adverts.json
   def create
     @advert = Advert.new(advert_params)
-
-    respond_to do |format|
       if @advert.save
-        format.html { redirect_to @advert, notice: 'Advert was successfully created.' }
-        format.json { render :show, status: :created, location: @advert }
+        redirect_to @advert, notice: 'Advert was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @advert.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /adverts/1
-  # PATCH/PUT /adverts/1.json
   def update
-    respond_to do |format|
-      if @advert.update(advert_params)
-        format.html { redirect_to @advert, notice: 'Advert was successfully updated.' }
-        format.json { render :show, status: :ok, location: @advert }
-      else
-        format.html { render :edit }
-        format.json { render json: @advert.errors, status: :unprocessable_entity }
-      end
+    if @advert.update(advert_params)
+      redirect_to @advert, notice: 'Advert was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /adverts/1
-  # DELETE /adverts/1.json
   def destroy
     @advert.destroy
-    respond_to do |format|
-      format.html { redirect_to adverts_url, notice: 'Advert was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to adverts_url, notice: 'Advert was successfully destroyed.'
   end
 
   private
@@ -69,6 +52,7 @@ class AdvertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advert_params
-      params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
+      params[:sold_to_user_id] = current_user.id
+      permitted_params = params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
     end
 end
