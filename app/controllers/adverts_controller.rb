@@ -41,9 +41,8 @@ class AdvertsController < ApplicationController
   # POST /adverts/1/buy
   def buy
     if current_user.can_buy_pass?
-      @user = current_user
       #Send the Email to user
-      TicketMailer.with(user: @user).ticket_email.deliver_now
+      TicketMailer.with(user: current_user, advert: @advert).ticket_email.deliver_now
       flash[:success] = "Advert bought, you'll receive a mail shortly"
       redirect_to seasonpasses_path
     else
@@ -65,7 +64,7 @@ class AdvertsController < ApplicationController
     end
 
     def filter_params
-      params[:date].map!{ |el| el.empty? ? nil : el } if params[:date]
+      params[:date].map!{ |el| (el.nil? || el.empty?) ? nil : el } if params[:date]
       permitted_params = params.permit(:sport_id, :club_id, date: [])
       permitted_params.to_h
     end

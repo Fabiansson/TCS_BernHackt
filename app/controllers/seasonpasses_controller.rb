@@ -1,6 +1,6 @@
 class SeasonpassesController < ApplicationController
-  before_action :set_seasonpass, only: [:show, :destroy]
-  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy]
+  before_action :set_seasonpass, only: [:show, :destroy, :offer]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy, :offer]
 
   # GET /seasonpasses
   def index
@@ -33,6 +33,16 @@ class SeasonpassesController < ApplicationController
     @seasonpass.destroy
     flash[:success] ='Seasonpass was successfully deleted.'
     redirect_to seasonpasses_url
+  end
+
+  # POST /seasonpasses/1
+  def offer
+    games = Game.where(id: params[:games_id])
+    games.each do |game|
+      Advert.create(seasonpass: @seasonpass, game: game, sold_to_user_id: nil, hashcode: nil)
+    end
+    flash[:success] ='Seasonpass was offered successfully.'
+    redirect_to @seasonpass
   end
 
   private

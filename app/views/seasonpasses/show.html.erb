@@ -1,12 +1,11 @@
-<p>
-  <strong>User:</strong>
-  <%= @seasonpass.user.full_name %>
-</p>
+<%= @seasonpass.club.name %>
 
-<p>
-  <strong>Club:</strong>
-  <%= @seasonpass.club.name %>
-</p>
+<%= form_tag(offer_seasonpass_path @seasonpass, method: 'post', role: 'form') do %>
+  <% Game.where("date > ?", Date.current).where(home_club_id: @seasonpass.club.id).order('date ASC').each do |game| %>
+    <%= label_tag('game', game.name) %>
+    <%= radio_button_tag("games_id[]", game.id) %>
+  <% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_seasonpass_path(@seasonpass) %> |
 <%= link_to 'Back', seasonpasses_path %>
