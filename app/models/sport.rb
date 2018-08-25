@@ -1,3 +1,4 @@
 class Sport < ApplicationRecord
-  has_many :club
+  has_many :clubs
+  validates :name, uniqueness: true
 end
