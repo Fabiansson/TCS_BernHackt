@@ -43,7 +43,7 @@ class AdvertsController < ApplicationController
     if current_user.can_buy_pass?
       @user = current_user
       #Send the Email to user
-      TicketMailer.with(user: @user).ticket_email
+      TicketMailer.with(user: @user).ticket_email.deliver_now
       flash[:success] = "Advert bought, you'll receive a mail shortly"
       redirect_to seasonpasses_path
     else
