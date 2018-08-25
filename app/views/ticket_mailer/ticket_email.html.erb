@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <h1>
+      Your Ticket order for the order <%= @event.game %>
+    </h1>
+    <p>
+      <!-- QR CODE -->
+    </p>
+    <p>
+      <%= @user.fullname %> \n
+      <%= @event.game %> \n
+      <%= @event.seat %> \n
+      <%= @event.sector %>
+
+      <!-- ANY MORE VARIABLES? -->
+    </p>
+  </body>
+</html>

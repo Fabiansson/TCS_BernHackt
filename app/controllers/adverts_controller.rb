@@ -1,5 +1,5 @@
 class AdvertsController < ApplicationController
-  before_action :set_advert, only: [:show, :edit, :update, :destroy]
+  before_action :set_advert, only: [:show, :edit, :update, :destroy, :buy]
 
   # GET /adverts
   def index
@@ -44,6 +44,13 @@ class AdvertsController < ApplicationController
     redirect_to adverts_url, notice: 'Advert was successfully destroyed.'
   end
 
+  #POST /adverts/1/buy
+  def buy
+    @user = current_user
+    #Send the Email to user
+    TicketMailer.with(user: @user).ticket_email
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_advert
@@ -55,4 +62,5 @@ class AdvertsController < ApplicationController
       params[:sold_to_user_id] = current_user.id
       permitted_params = params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
     end
+
 end
