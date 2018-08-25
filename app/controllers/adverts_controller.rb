@@ -1,5 +1,5 @@
 class AdvertsController < ApplicationController
-  before_action :set_advert, only: [:show, :edit, :destroy]
+  before_action :set_advert, only: [:show, :edit, :update, :destroy, :buy]
 
   # GET /adverts
   def index
@@ -36,7 +36,9 @@ class AdvertsController < ApplicationController
   # POST /adverts/1/buy
   def buy
     if current_user.can_buy_pass?
-      # Ben's code
+      @user = current_user
+      #Send the Email to user
+      TicketMailer.with(user: @user).ticket_email
       flash[:success] = "Advert bought, you'll receive a mail shortly"
       redirect_to seasonpasses_path
     else
@@ -56,4 +58,5 @@ class AdvertsController < ApplicationController
       params[:sold_to_user_id] = current_user.id
       permitted_params = params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
     end
+
 end
