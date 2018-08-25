@@ -8,7 +8,7 @@
       Your Ticket order for the game <%= @advert.game.name %>
     </h1>
     <p>
-      <!-- QR CODE -->
+      <%= image_tag generateqr(12,11) %>
     </p>
     <p>
       <%= @user.fullname %> \n
