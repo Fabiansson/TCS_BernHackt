@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_24_235711) do
+ActiveRecord::Schema.define(version: 2018_08_25_132259) do
 
   create_table "adverts", force: :cascade do |t|
     t.integer "seasonpass_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_08_24_235711) do
     t.integer "sold_to_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "hashcode"
     t.index ["game_id"], name: "index_adverts_on_game_id"
     t.index ["seasonpass_id"], name: "index_adverts_on_seasonpass_id"
     t.index ["sold_to_user_id"], name: "index_adverts_on_sold_to_user_id"
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_08_24_235711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "tcs_number"
   end
 
 end

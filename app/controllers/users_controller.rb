@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    redirect_to show_user current_user if logged_in?
+    redirect_to user_path current_user && return if logged_in?
     redirect_to login_path
   end
 
@@ -29,6 +29,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the TCS App!"
       redirect_to @user
     else
+      flash[:danger] = @user.errors.full_messages
       render 'new'
     end
   end
@@ -36,8 +37,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      flash[:success] = 'User was successfully updates.'
+      redirect_to @user
     else
+      flash[:danger] = @user.errors.full_messages
       render :edit
     end
   end
@@ -45,7 +48,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
+    flash[:success] = 'User was successfully destroyed.'
+    redirect_to users_url
   end
 
   private
@@ -56,6 +60,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :birth_date, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :birth_date, :email, :tcs_number, :password, :password_confirmation)
     end
 end

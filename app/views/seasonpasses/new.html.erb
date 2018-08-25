@@ -1,18 +1,6 @@
 <h1>New Seasonpass</h1>
 
 <%= form_for(@seasonpass) do |f| %>
-  <% if @seasonpass.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@seasonpass.errors.count, "error") %> prohibited this seasonpass from being saved:</h2>
-
-      <ul>
-      <% @seasonpass.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <%= f.label :club_id, "Club" %>
   <%= f.select :club_id, Club.all.collect { |c| [ c.name, c.id ] }, class: 'form-control' %>
 

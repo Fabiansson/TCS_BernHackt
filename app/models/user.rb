@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def can_buy_pass?
+    tcs_number.present?
+  end
 end
