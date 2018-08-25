@@ -19,8 +19,10 @@ class SeasonpassesController < ApplicationController
   def create
     @seasonpass = Seasonpass.new(seasonpass_params)
     if @seasonpass.save
-      redirect_to @seasonpass, notice: 'Seasonpass was successfully created.'
+      flash[:success] ='Seasonpass was successfully created.'
+      redirect_to @seasonpass
     else
+      flash[:danger] = @seasonpass.errors.full_messages
       render :new
     end
   end
@@ -28,9 +30,10 @@ class SeasonpassesController < ApplicationController
   # DELETE /seasonpasses/1
   def destroy
     @seasonpass.destroy
-    redirect_to seasonpasses_url, notice: 'Seasonpass was successfully destroyed.'
+    flash[:success] ='Seasonpass was successfully deleted.'
+    redirect_to seasonpasses_url
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seasonpass

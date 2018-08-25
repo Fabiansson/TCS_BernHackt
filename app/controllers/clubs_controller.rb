@@ -1,11 +1,6 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: :show
 
-  # GET /clubs
-  def index
-    @clubs = Club.all
-  end
-
   # GET /clubs/1
   def show
   end

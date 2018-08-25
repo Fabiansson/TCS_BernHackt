@@ -1,9 +1,20 @@
 Rails.application.routes.draw do
   get 'sessions/new'
-  resources :adverts
+  root 'sessions#new'
+  resources :adverts, only: [:index, :show, :new, :create, :destroy]
   resources :games
-  resources :seasonpasses
-  resources :clubs
+  resources :seasonpasses do
+    collection do
+      get :index
+      get :new
+      post :create
+    end
+    member do
+      get :show
+      post :buy
+    end
+  end
+  resources :clubs, only: [:show]
   resources :users
 
   get    '/login',   to: 'sessions#new'

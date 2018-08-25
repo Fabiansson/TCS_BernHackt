@@ -1,5 +1,5 @@
 class AdvertsController < ApplicationController
-  before_action :set_advert, only: [:show, :edit, :update, :destroy]
+  before_action :set_advert, only: [:show, :edit, :destroy]
 
   # GET /adverts
   def index
@@ -15,33 +15,34 @@ class AdvertsController < ApplicationController
     @advert = Advert.new
   end
 
-  # GET /adverts/1/edit
-  def edit
-  end
-
   # POST /adverts
   def create
     @advert = Advert.new(advert_params)
       if @advert.save
-        redirect_to @advert, notice: 'Advert was successfully created.'
+        flash[:success] = 'Advert was successfully created.'
+        redirect_to @advert
       else
         render :new
       end
   end
 
-  # PATCH/PUT /adverts/1
-  def update
-    if @advert.update(advert_params)
-      redirect_to @advert, notice: 'Advert was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
   # DELETE /adverts/1
   def destroy
     @advert.destroy
-    redirect_to adverts_url, notice: 'Advert was successfully destroyed.'
+    flash[:success] = 'Advert was successfully destroyed.'
+    redirect_to adverts_url
+  end
+
+  # POST /adverts/1/buy
+  def buy
+    if current_user.can_buy_pass?
+      # Ben's code
+      flash[:success] = "Advert bought, you'll receive a mail shortly"
+      redirect_to seasonpasses_path
+    else
+      flash[:danger] = 'You need to be a TCS member to buy tickets'
+      redirect_to @seasonpass
+    end
   end
 
   private

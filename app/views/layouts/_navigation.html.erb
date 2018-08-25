@@ -1,0 +1,31 @@
+<div class="sticky-top">
+  <nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_burger" aria-controls="navbar_burger" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+<!--  Left aligned items in navbar-->
+      <ul class="navbar-nav">
+        <%= link_to(image_tag('logo.jpeg'), root_path, class: 'navbar-brand col-1') %>
+      </ul>
+<!--  Right aligned items in navbar-->
+    <div class="collapse navbar-collapse" id="navbar_burger">
+      <ul class=" nav navbar-nav ml-auto">
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to fa_icon('shopping-cart', text: 'Buy'), '/adverts', method: :get %>
+          </li>
+          <li class="nav-item ml-3">
+            <%= link_to fa_icon('user-circle', text: 'Profile'), '/profile', method: :get %>
+          </li>
+          <li class="nav-item ml-3">
+            <%= link_to fa_icon('sign-out', text: 'Logout'), '/logout', method: :delete %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to fa_icon('sign-in', text: 'Log in'), '/login', method: :get %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</div>
