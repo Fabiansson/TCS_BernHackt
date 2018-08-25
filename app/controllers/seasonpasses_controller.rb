@@ -1,5 +1,6 @@
 class SeasonpassesController < ApplicationController
   before_action :set_seasonpass, only: [:show, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :new, :create, :destroy]
 
   # GET /seasonpasses
   def index
@@ -33,7 +34,7 @@ class SeasonpassesController < ApplicationController
     flash[:success] ='Seasonpass was successfully deleted.'
     redirect_to seasonpasses_url
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seasonpass

@@ -2,6 +2,6 @@
   <div class="alert alert-<%= name %>">
     <a class="close" data-dismiss="alert">&#215;</a>
       <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-      <%= msg.each { |message| content_tag :div, message, :id => "flash_#{name}" } if msg.is_an?(Array) %>
+      <%= content_tag :div, msg.join("\n"), :id => "flash_#{name}" if msg.is_a?(Array) %>
   </div>
 <% end %>

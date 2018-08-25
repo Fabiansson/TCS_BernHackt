@@ -1,5 +1,6 @@
 class AdvertsController < ApplicationController
   before_action :set_advert, only: [:show, :edit, :update, :destroy, :buy]
+  before_action :logged_in_user, only: [:create, :destroy, :buy]
 
   # GET /adverts
   def index
