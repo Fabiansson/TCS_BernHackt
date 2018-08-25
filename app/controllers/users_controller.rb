@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    redirect_to show_user current_user if logged_in?
+    redirect_to login_path
   end
 
   # GET /users/1

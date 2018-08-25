@@ -1,9 +1,9 @@
 class SeasonpassesController < ApplicationController
-  before_action :set_seasonpass, only: [:show, :edit, :update, :destroy]
+  before_action :set_seasonpass, only: [:show, :destroy]
 
   # GET /seasonpasses
   def index
-    @seasonpasses = Seasonpass.all
+    @seasonpasses = current_user.seasonpasses
   end
 
   # GET /seasonpasses/1
@@ -13,10 +13,6 @@ class SeasonpassesController < ApplicationController
   # GET /seasonpasses/new
   def new
     @seasonpass = Seasonpass.new
-  end
-
-  # GET /seasonpasses/1/edit
-  def edit
   end
 
   # POST /seasonpasses
@@ -29,15 +25,6 @@ class SeasonpassesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /seasonpasses/1
-  def update
-    if @seasonpass.update(seasonpass_params)
-      redirect_to @seasonpass, notice: 'Seasonpass was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
   # DELETE /seasonpasses/1
   def destroy
     @seasonpass.destroy
@@ -47,11 +34,12 @@ class SeasonpassesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seasonpass
-      @seasonpass = Seasonpass.find(params[:id])
+      @seasonpass = current_user.seasonpasses.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def seasonpass_params
+      params[:seasonpass][:user_id] = current_user.id
       params.require(:seasonpass).permit(:user_id, :club_id)
     end
 end

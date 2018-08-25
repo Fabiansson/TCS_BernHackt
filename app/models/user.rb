@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :seasonpasses
+  has_many :adverts
+
   before_save { self.email = email.downcase }
 
   validates :first_name, presence: true

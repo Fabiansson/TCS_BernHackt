@@ -2,12 +2,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @seasonpass.user %>
+  <%= @seasonpass.user.full_name %>
 </p>
 
 <p>
   <strong>Club:</strong>
-  <%= @seasonpass.club %>
+  <%= @seasonpass.club.name %>
 </p>
 
 <%= link_to 'Edit', edit_seasonpass_path(@seasonpass) %> |
