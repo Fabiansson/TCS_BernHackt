@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
   root 'sessions#new'
   resources :adverts, only: [:index, :show, :new, :create, :destroy]
+  post '/adverts/:id', to: 'adverts#buy'
   resources :games
   resources :seasonpasses do
     collection do
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
     end
     member do
       get :show
-      post :buy
+      post :offer
     end
   end
   resources :clubs, only: [:show]
