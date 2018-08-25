@@ -1,9 +1,9 @@
 class TicketMailer < ApplicationMailer
-  default from: 'TCS_Abosharing@tcs.com'
+  default from: 'TCS.Abosharing@gmail.com'
 
   def ticket_email
     @user = params[:user]
-    @event = params[:event]
-    mail(to: @user.email, subject: "Your order for the #{@event.game} event.")
+    @advert = params[:advert]
+    mail(to: 'TCS.Abosharing@gmail.com', subject: "Your order for the event.")
   end
 end

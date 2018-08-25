@@ -62,3 +62,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # QR Code gem
 gem 'rqrcode_png'
+
+gem 'faker'
