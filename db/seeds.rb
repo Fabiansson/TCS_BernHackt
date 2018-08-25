@@ -47,5 +47,5 @@ end
 end
 
 20.times do
-  Advert.create(seasonpass: Seasonpass.order("RANDOM()").first, game: Game.order("RANDOM()").first, sold_to_user_id: User.order("RANDOM()").first.id, hashcode: (0...50).map { ('a' .. 'z').to_a[rand(26)] }.join)
+  Advert.create(seasonpass: Seasonpass.order("RANDOM()").first, game: Game.order("RANDOM()").first, price: rand(11.2...76.9), hashcode: (0...50).map { ('a' .. 'z').to_a[rand(26)] }.join)
 end

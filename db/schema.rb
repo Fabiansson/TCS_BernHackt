@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2018_08_25_162029) do
     t.integer "seasonpass_id"
     t.integer "game_id"
     t.integer "sold_to_user_id"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hashcode"
