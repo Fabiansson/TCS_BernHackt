@@ -5,22 +5,22 @@
     </button>
 <!--  Left aligned items in navbar-->
       <ul class="navbar-nav">
-        <%= link_to(image_tag('logo.jpeg'), root_path, class: 'navbar-brand col-1') %>
+        <%= link_to(image_tag('logo_100.jpeg'), root_path, class: 'navbar-brand col-1') %>
       </ul>
 <!--  Right aligned items in navbar-->
     <div class="collapse navbar-collapse" id="navbar_burger">
       <ul class=" nav navbar-nav ml-auto">
         <% if logged_in? %>
           <li class="nav-item">
-            <%= link_to fa_icon('shopping-cart', text: 'Buy'), '/adverts', method: :get %>
+            <%= link_to fa_icon('shopping-cart', text: 'Buy'), adverts_path, method: :get %>
           </li>
           <li class="nav-item ml-3">
-            <%= link_to fa_icon('user-circle', text: 'Profile'), '/profile', method: :get %>
+            <%= link_to fa_icon('user-circle', text: 'Profile'), user_path(current_user), method: :get %>
           </li>
           <li class="nav-item ml-3">
             <%= link_to fa_icon('sign-out', text: 'Logout'), '/logout', method: :delete %>
           </li>
-        <% else %>
+        <% elsif !(controller_name == 'sessions' && action_name == 'new')  %>
           <li class="nav-item">
             <%= link_to fa_icon('sign-in', text: 'Log in'), '/login', method: :get %>
           </li>
