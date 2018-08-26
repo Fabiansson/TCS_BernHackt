@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   resources :adverts, only: [:index, :show, :new, :create, :destroy]
   post '/adverts/:id', to: 'adverts#buy'
   resources :games
+  get '/seasonpasses/new', to: 'seasonpasses#new'
   resources :seasonpasses do
     collection do
       get :index
-      get :new
       post :create
     end
     member do

@@ -1,11 +1,28 @@
-<%= @seasonpass.club.name %>
+<h1><%= "Seasonpass for #{@seasonpass.club.name}" %></h1>
+
+<p>Select the games you won't be able to attend </p>
 
 <%= form_tag(offer_seasonpass_path @seasonpass, method: 'post', role: 'form') do %>
-  <% Game.where("date > ?", Date.current).where(home_club_id: @seasonpass.club.id).order('date ASC').each do |game| %>
-    <%= label_tag('game', "#{game.name} #{game.date}") %>
-    <%= check_box_tag("games_id[]", game.id) %>
-    <br>
-  <% end %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Game</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% selected_games = Game.includes(:adverts).where(adverts: { sold_to_user_id: nil, seasonpass: @seasonpass })%>
+    <% Game.where("date > ?", Date.current).where(home_club_id: @seasonpass.club.id).order('date ASC').each do |game| %>
+    <tr>
+      <td> <%= game.name %> </td>
+      <td> <%= game.date %> </td>
+      <td> <%= check_box_tag("games_id[]", game.id, selected_games.exists?(game.id)) %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+ </table>
 
   <%= submit_tag "Submit" %>
 <% end %>
