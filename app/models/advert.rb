@@ -17,20 +17,15 @@ class Advert < ApplicationRecord
 
   scope :all_between_dates, (lambda do |dates|
     dates[0].nil? ? DateTime.new(0) : DateTime.parse(dates[0])
-    dates[1] .nil? ? DateTime::Infinity.new : DateTime.parse(dates[1])
-    game_date = game.date
-    where(game_date.to_sym => Range.new(*dates))
+    dates[1].nil? ? DateTime::Infinity.new : DateTime.parse(dates[1])
+    includes(:game).where("game.date" => Range.new(*dates))
   end)
 
   scope :all_by_club_id, (lambda do |club_id|
-    home_club = game.home_club_id
-    where(home_club.to_sym => club_id)
+    includes(:game).where(game: { home_club_id: club_id })
   end)
 
   scope :all_by_sport_id, (lambda do |sport_id|
-    sport = Sport.find(sport_id)
-    club = Club.find(game.home_club_id)
-    club_sport = club.sport
-    where(club_sport => sport)
+    includes(:game).where(game: { home_club_id: Sport.find(sport_id).clubs.map(&:id) })
   end)
 end

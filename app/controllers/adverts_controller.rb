@@ -1,3 +1,6 @@
+require 'rqrcode_png'
+require 'digest'
+
 class AdvertsController < ApplicationController
   before_action :set_advert, only: [:show, :edit, :update, :destroy, :buy]
   before_action :logged_in_user, only: [:create, :destroy, :buy]
@@ -40,9 +43,11 @@ class AdvertsController < ApplicationController
 
   # POST /adverts/1/buy
   def buy
-    if current_user.can_buy_pass?
+    if true #current_user.can_buy_pass?
       #Send the Email to user
-      TicketMailer.with(user: current_user, advert: @advert).ticket_email.deliver_now
+      @advert.update(sold_to_user_id: current_user.id)
+      generateqr(@advert)
+      TicketMailer.ticket_email(@advert).deliver
       flash[:success] = "Advert bought, you'll receive a mail shortly"
       redirect_to seasonpasses_path
     else
@@ -52,20 +57,38 @@ class AdvertsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_advert
-      @advert = Advert.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def advert_params
-      params[:sold_to_user_id] = current_user.id
-      params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_advert
+    @advert = Advert.find(params[:id])
+  end
 
-    def filter_params
-      params[:date].map!{ |el| (el.nil? || el.empty?) ? nil : el } if params[:date]
-      permitted_params = params.permit(:sport_id, :club_id, date: [])
-      permitted_params.to_h
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def advert_params
+    params[:sold_to_user_id] = current_user.id
+    params.require(:advert).permit(:season_pass_id, :game_id, :sold_to_user_id)
+  end
+
+  def filter_params
+    params[:date].map!{ |el| (el.nil? || el.empty?) ? nil : el } if params[:date]
+    permitted_params = params.permit(:sport_id, :club_id, date: [])
+    permitted_params.to_h
+  end
+
+  def generateqr(advert)
+    code = Digest::MD5.hexdigest("#{advert.id} #{advert.game.id} #{advert.seasonpass.id}")
+    advert.update(hashcode: hash)
+
+    qrcode = RQRCode::QRCode.new(code)
+    png = qrcode.as_png(
+      resize_gte_to: false,
+      resize_exactly_to: false,
+      fill: 'white',
+      color: 'black',
+      size: 500,
+      border_modules: 4,
+      module_px_size: 6,
+      file: "/tmp/qrcode_#{@advert.id}.png"
+      )
+  end
 end

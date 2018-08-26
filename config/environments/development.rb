@@ -63,8 +63,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       address:              'smtp.gmail.com',
       port:                 587,
-      domain:               'tcs.abosharing@gmail.com',
-      user_name:            'bern hackathon',
+      domain:               'ex123.com',
+      user_name:            'tcs.abosharing',
       password:             'Supersecurepassword123',
       authentication:       'plain',
       enable_starttls_auto: true }
