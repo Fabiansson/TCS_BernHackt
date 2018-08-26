@@ -43,16 +43,16 @@ class AdvertsController < ApplicationController
 
   # POST /adverts/1/buy
   def buy
-    if true #current_user.can_buy_pass?
+    if current_user.can_buy_pass?
       #Send the Email to user
       @advert.update(sold_to_user_id: current_user.id)
       generateqr(@advert)
       TicketMailer.ticket_email(@advert).deliver
       flash[:success] = "Advert bought, you'll receive a mail shortly"
-      redirect_to seasonpasses_path
+      redirect_to adverts_path
     else
       flash[:danger] = 'You need to be a TCS member to buy tickets'
-      redirect_to @seasonpass
+      redirect_to adverts_path
     end
   end
 
