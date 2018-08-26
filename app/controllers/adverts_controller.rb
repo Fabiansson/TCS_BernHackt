@@ -46,7 +46,7 @@ class AdvertsController < ApplicationController
     if true #current_user.can_buy_pass?
       #Send the Email to user
       @advert.update(sold_to_user_id: current_user.id)
-      generateqr(@advert.id, 11)
+      generateqr(@advert)
       TicketMailer.ticket_email(@advert).deliver
       flash[:success] = "Advert bought, you'll receive a mail shortly"
       redirect_to seasonpasses_path
@@ -75,10 +75,9 @@ class AdvertsController < ApplicationController
     permitted_params.to_h
   end
 
-  def generateqr(id_abo,event_id)
-    code = Digest::MD5.hexdigest("#{id_abo} #{event_id}")
-
-    @advert.update(hashcode: hash)
+  def generateqr(advert)
+    code = Digest::MD5.hexdigest("#{advert.id} #{advert.game.id} #{advert.seasonpass.id}")
+    advert.update(hashcode: hash)
 
     qrcode = RQRCode::QRCode.new(code)
     png = qrcode.as_png(
