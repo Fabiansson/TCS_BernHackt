@@ -9,10 +9,10 @@
       <%= f.label :last_name %>
       <%= f.text_field :last_name, class: 'form-control' %>
 
-      <%= f.label :birth_date %>
-      <%= f.date_select :birth_date, class: 'form-control' %>
+      <%= f.label :birth_date %> <br>
+      <%= f.date_select :birth_date, class: 'form-control' %> <br>
 
-      <%= f.label :tcs_number %>
+      <%= f.label :tcs_number, 'TCS number' %>
       <%= f.text_field :tcs_number, class: 'form-control' %>
 
       <%= f.label :email %>
@@ -23,11 +23,11 @@
 
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
-
+      <br>
       <%= f.submit "Sign up", class: "btn btn-primary" %>
     <% end %>
 
-    <p>New user? <%= link_to "Sign up now!", new_user_path %></p>
+    <p>Already registered? <%= link_to "Log in now!", '/login' %></p>
   </div>
 </div>
 

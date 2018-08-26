@@ -30,7 +30,7 @@ class SeasonpassesController < ApplicationController
 
   # DELETE /seasonpasses/1
   def destroy
-    @seasonpass.destroy
+    @seasonpass.update!(user: nil)
     flash[:success] ='Seasonpass was successfully deleted.'
     redirect_to seasonpasses_url
   end
@@ -39,6 +39,7 @@ class SeasonpassesController < ApplicationController
   def offer
     games = Game.where(id: params[:games_id])
     games.each do |game|
+      next if Advert.where(seasonpass: @seasonpass, game: game).present?
       Advert.create(seasonpass: @seasonpass, game: game, sold_to_user_id: nil, hashcode: nil)
     end
     flash[:success] ='Seasonpass was offered successfully.'

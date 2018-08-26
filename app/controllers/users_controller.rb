@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user.update(edit_params)
   end
 
   # POST /users
@@ -63,5 +64,9 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:first_name, :last_name, :birth_date, :email, :tcs_number, :password, :password_confirmation)
+  end
+
+  def edit_params
+    params.permit(:first_name, :last_name, :birth_date, :email, :tcs_number).delete_if { |_, v| v.blank? }
   end
 end

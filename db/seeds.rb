@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 require 'faker'
 
 i = 0
@@ -25,10 +17,10 @@ end
 clubs = [ [ "Fussball", [ "YB", "FCB", "FCL", "FCZ", "GC" ] ], [ "Eishockey", [ "EVZ", "SCB", "HCD", "Ambri" ] ] ]
 
 clubs.each do | hash |
-    sport = Sport.find_by(name: hash.first)
-    hash.second.each do |club|
-      Club.create(name: club, sport: sport)
-    end
+  sport = Sport.find_by(name: hash.first)
+  hash.second.each do |club|
+    Club.create(name: club, sport: sport)
+  end
 end
 
 
@@ -36,15 +28,15 @@ end
   Seasonpass.create(user: User.order("RANDOM()").first, club: Club.order("Random()").first)
 end
 
-
-20.times do
-  first_club = Club.order("Random()").first
-  second_club = Club.order("Random()").first
-  while first_club.eql? second_club do
-    second_club = Club.order("Random()").first
+Sport.all.each do |sport|
+  10.times do
+    first_club = Club.where(sport: sport).order("Random()").first
+    second_club = Club.where(sport: sport).order("Random()").first
+    while first_club.eql? second_club do
+      second_club = Club.where(sport: sport).order("Random()").first
+    end
+    Game.create(home_club_id: first_club.id, away_club_id: second_club.id, date: Faker::Time.forward(20))
   end
-
-  Game.create(home_club_id: first_club.id, away_club_id: second_club.id, date: Faker::Time.forward(20))
 end
 
 20.times do
