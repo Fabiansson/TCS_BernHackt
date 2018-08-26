@@ -36,13 +36,14 @@ end
   Seasonpass.create(user: User.order("RANDOM()").first, club: Club.order("Random()").first)
 end
 
-first_club = Club.order("Random()").first
-second_club = Club.order("Random()").first
-while first_club.eql? second_club do
-  second_club = Club.order("Random()").first
-end
 
 20.times do
+  first_club = Club.order("Random()").first
+  second_club = Club.order("Random()").first
+  while first_club.eql? second_club do
+    second_club = Club.order("Random()").first
+  end
+
   Game.create(home_club_id: first_club.id, away_club_id: second_club.id, date: Faker::Time.forward(20))
 end
 

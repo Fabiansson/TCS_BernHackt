@@ -45,7 +45,7 @@
         <tr>
           <td><%= advert.game.name %></td>
           <td><%= advert.game.date %></td>
-          <td><%= advert.price rescue "10.-" %></td>
+          <td><%= advert.price.round(2) rescue "10.-" %></td>
           <td><%= link_to 'Buy', advert, method: :buy %></td>
         </tr>
       <% end %>
