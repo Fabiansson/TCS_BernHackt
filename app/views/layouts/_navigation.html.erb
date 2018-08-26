@@ -1,28 +1,28 @@
 <div class="sticky-top">
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning mb-5">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_burger" aria-controls="navbar_burger" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 <!--  Left aligned items in navbar-->
       <ul class="navbar-nav">
-        <%= link_to(image_tag('logo_100.jpeg'), root_path, class: 'navbar-brand col-1') %>
+        <%= link_to(image_tag('tcslogo.png', width: '60'), root_path, class: 'navbar-brand col-1') %>
       </ul>
 <!--  Right aligned items in navbar-->
     <div class="collapse navbar-collapse" id="navbar_burger">
       <ul class=" nav navbar-nav ml-auto">
         <% if logged_in? %>
           <li class="nav-item">
-            <%= link_to fa_icon('shopping-cart', text: 'Buy'), adverts_path, method: :get %>
+            <%= link_to fa_icon('ticket', class: 'fa-3x  mr-4'), adverts_path, method: :get %>
           </li>
           <li class="nav-item ml-3">
-            <%= link_to fa_icon('user-circle', text: 'Profile'), user_path(current_user), method: :get %>
+            <%= link_to fa_icon('user-circle', class: 'fa-3x mr-4'), user_path(current_user), method: :get %>
           </li>
           <li class="nav-item ml-3">
-            <%= link_to fa_icon('sign-out', text: 'Logout'), '/logout', method: :delete %>
+            <%= link_to fa_icon('sign-out', class: 'fa-3x mr-2'), '/logout', method: :delete %>
           </li>
         <% elsif !(controller_name == 'sessions' && action_name == 'new')  %>
           <li class="nav-item">
-            <%= link_to fa_icon('sign-in', text: 'Log in'), '/login', method: :get %>
+            <%= link_to fa_icon('sign-in', class: 'fa-3x'), '/login', method: :get %>
           </li>
         <% end %>
       </ul>
