@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user.update(edit_params)
+    @user.update!(edit_params)
   end
 
   # POST /users
@@ -67,6 +67,6 @@ class UsersController < ApplicationController
   end
 
   def edit_params
-    params.permit(:first_name, :last_name, :birth_date, :email, :tcs_number).delete_if { |_, v| v.blank? }
+    params.permit(:first_name, :last_name, :birth_date, :email, :tcs_number).delete_if { |_, v| v.blank? }.to_h
   end
 end

@@ -48,7 +48,7 @@ class AdvertsController < ApplicationController
       @advert.update(sold_to_user_id: current_user.id)
       generateqr(@advert)
       TicketMailer.ticket_email(@advert).deliver
-      flash[:success] = "Advert bought, you'll receive a mail shortly"
+      flash[:success] = "Ticket bought, you'll receive an email shortly"
       redirect_to adverts_path
     else
       flash[:danger] = 'You need to be a TCS member to buy tickets'
