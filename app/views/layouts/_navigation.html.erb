@@ -12,17 +12,17 @@
       <ul class=" nav navbar-nav ml-auto">
         <% if logged_in? %>
           <li class="nav-item">
-            <%= link_to fa_icon('shopping-cart', text: 'Buy'), adverts_path, method: :get %>
+            <%= link_to fa_icon('ticket', class: 'fa-3x'), adverts_path, method: :get %>
           </li>
-          <li class="nav-item ml-3">
-            <%= link_to fa_icon('user-circle', text: 'Profile'), user_path(current_user), method: :get %>
+          <li class="nav-item ml-4">
+            <%= link_to fa_icon('user-circle', class: 'fa-3x'), user_path(current_user), method: :get %>
           </li>
-          <li class="nav-item ml-3">
-            <%= link_to fa_icon('sign-out', text: 'Logout'), '/logout', method: :delete %>
+          <li class="nav-item ml-4 mr-4">
+            <%= link_to fa_icon('sign-out', class: 'fa-3x'), '/logout', method: :delete %>
           </li>
         <% elsif !(controller_name == 'sessions' && action_name == 'new')  %>
-          <li class="nav-item">
-            <%= link_to fa_icon('sign-in', text: 'Log in'), '/login', method: :get %>
+          <li class="nav-item mr-4">
+            <%= link_to fa_icon('sign-in', class: 'fa-3x'), '/login', method: :get %>
           </li>
         <% end %>
       </ul>

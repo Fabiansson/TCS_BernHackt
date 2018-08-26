@@ -1,4 +1,4 @@
-<h1>Adverts</h1>
+<h1>Tickets</h1>
 
 <%= form_tag(adverts_path, method: 'get', role: 'form') do %>
   <div class="row">
@@ -45,12 +45,12 @@
         <tr>
           <td><%= advert.game.name %></td>
           <td><%= advert.game.date %></td>
-          <td><%= advert.price.round(2) rescue "10.-" %></td>
+          <td><%= advert.price.round(2) rescue "23.50" %></td>
           <td><%= link_to 'Buy', advert, method: :buy %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <p>No Adverts found </p>
+  <p>No Tickets found </p>
 <% end %>
